@@ -17,6 +17,7 @@ describe('retry', () => {
         });
 
         assert.equal(result, 3);
+        assert.equal(stub.callCount, 3);
     });
 
     it('reject after all retries failed', () => {
