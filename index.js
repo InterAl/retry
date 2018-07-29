@@ -1,13 +1,13 @@
 module.exports = function retry({action, successPredicate, retryCount = 1, delay = 0, errorLog = (() => {})} = {}) {
+    if (!action)
+        throw 'action is required';
+    if (!successPredicate)
+        throw 'successPredicate is required';
+
     let retried = 0;
 
     return new Promise((resolve, reject) => {
         (function iter() {
-            if (!action)
-                throw 'action is required';
-            if (!successPredicate)
-                throw 'successPredicate is required';
-
             try {
                 Promise.resolve(action()).then(result => {
                     if (!successPredicate(result)) {
